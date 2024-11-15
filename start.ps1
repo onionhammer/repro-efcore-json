@@ -1,1 +1,1 @@
-dotnet watch run --project .\Repro.AppHost\
+dotnet run --project .\Repro.AppHost\
