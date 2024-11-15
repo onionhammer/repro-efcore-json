@@ -23,10 +23,7 @@ builder.Services.AddDbContext<PostgresContext>(options =>
     options.UseNpgsql(dataSource);
     options.EnableDetailedErrors();
     options.EnableSensitiveDataLogging();
-    options.UseSnakeCaseNamingConvention();
 });
-
-// builder.EnrichNpgsqlDbContext<PostgresContext>();
 
 // Create a lead
 var leadId = Guid.NewGuid();
@@ -43,8 +40,8 @@ var lead = new Lead()
 };
 
 // Assert JSON serialization of a lead
-var json = System.Text.Json.JsonSerializer.Serialize(lead);//, jsonOptions);
-var deserialized = System.Text.Json.JsonSerializer.Deserialize<Lead>(json);//, jsonOptions);
+var json = System.Text.Json.JsonSerializer.Serialize(lead);
+var deserialized = System.Text.Json.JsonSerializer.Deserialize<Lead>(json);
 
 var host = builder.Build();
 
@@ -61,7 +58,8 @@ using (var scope = host.Services.CreateScope())
 using (var scope = host.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<PostgresContext>();
-    var readLead = db.Leads.Include(h => h.History).First(p => p.Id == lead.Id);
+    var readLead = db.Leads.First(p => p.Id == lead.Id);
+    // var readLead = db.Leads.Include(h => h.History).First(p => p.Id == lead.Id);
     // var readLead = db.Leads.First();
 }
 
