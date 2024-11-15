@@ -8,7 +8,6 @@ namespace Repro.Worker.Model;
 public abstract record History
 {
     public Guid Id { get; set; } = Guid.NewGuid();
-    public Guid LeadId { get; init; }
     public DateTimeOffset DateCreated { get; set; } = DateTimeOffset.UtcNow;
     public virtual HistoryStage Stage { get; }
 }

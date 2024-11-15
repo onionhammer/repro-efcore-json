@@ -33,10 +33,6 @@ var lead = new Lead()
 {
     Id = leadId,
     LastHistory = complete,
-    History = [
-        match,
-        complete
-    ]
 };
 
 // Assert JSON serialization of a lead
@@ -59,8 +55,6 @@ using (var scope = host.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<PostgresContext>();
     var readLead = db.Leads.First(p => p.Id == lead.Id);
-    // var readLead = db.Leads.Include(h => h.History).First(p => p.Id == lead.Id);
-    // var readLead = db.Leads.First();
 }
 
 host.Run();
